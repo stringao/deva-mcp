@@ -6,3 +6,7 @@ members = [
     "crates/deva-shared/crates/github",
     "crates/deva-shared/crates/azure_devops",
 ]
+
+[dev-dependencies]
+mockito = "1.4"
+tokio-test = "0.4"
