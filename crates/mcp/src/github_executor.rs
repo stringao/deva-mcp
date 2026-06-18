@@ -81,6 +81,17 @@ impl GitHubToolExecutor {
         })))
     }
 
+    /// Execute github_issue_list with real API call
+    pub async fn list_issues_async(&self, state: Option<&str>) -> Result<ToolResult, McpError> {
+        let issues = self.client.list_issues(state, None)
+            .await
+            .map_err(|e| McpError::Internal(e.to_string()))?;
+        Ok(ToolResult::from_json(serde_json::json!({
+            "issues": issues,
+            "count": issues.len()
+        })))
+    }
+
     /// Execute github_branch_list (placeholder)
     pub fn list_branches(&self, _input: ToolInput) -> Result<ToolResult, McpError> {
         Ok(ToolResult::from_json(serde_json::json!({
@@ -89,10 +100,45 @@ impl GitHubToolExecutor {
         })))
     }
 
+    /// Execute github_branch_list with real API call
+    pub async fn list_branches_async(&self) -> Result<ToolResult, McpError> {
+        let branches = self.client.list_branches()
+            .await
+            .map_err(|e| McpError::Internal(e.to_string()))?;
+        Ok(ToolResult::from_json(serde_json::json!({
+            "branches": branches,
+            "count": branches.len()
+        })))
+    }
+
     /// Execute github_repo_get (placeholder)
     pub fn get_repo(&self, _input: ToolInput) -> Result<ToolResult, McpError> {
         Ok(ToolResult::from_json(serde_json::json!({
             "status": "placeholder"
         })))
+    }
+
+    /// Execute github_repo_get with real API call
+    pub async fn get_repo_async(&self) -> Result<ToolResult, McpError> {
+        let repo = self.client.get_repo()
+            .await
+            .map_err(|e| McpError::Internal(e.to_string()))?;
+        Ok(ToolResult::from_json(serde_json::json!(repo)))
+    }
+
+    /// Execute github_pr_get with real API call
+    pub async fn get_pr_async(&self, pr_number: u64) -> Result<ToolResult, McpError> {
+        let pr = self.client.get_pr(pr_number)
+            .await
+            .map_err(|e| McpError::Internal(e.to_string()))?;
+        Ok(ToolResult::from_json(serde_json::json!(pr)))
+    }
+
+    /// Execute github_pr_create with real API call
+    pub async fn create_pr_async(&self, title: &str, head: &str, base: &str, body: Option<&str>) -> Result<ToolResult, McpError> {
+        let pr = self.client.create_pr(title, head, base, body)
+            .await
+            .map_err(|e| McpError::Internal(e.to_string()))?;
+        Ok(ToolResult::from_json(serde_json::json!(pr)))
     }
 }

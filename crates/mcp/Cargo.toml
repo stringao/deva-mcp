@@ -35,6 +35,9 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 [features]
-default = []
+default = ["github"]
 github = ["deva-github"]
 azure_devops = ["deva-azure-devops"]
+
+[dev-dependencies]
+mockito = "1.4"
