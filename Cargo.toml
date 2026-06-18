@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/mcp",
+    "crates/deva-shared/crates/core",
+    "crates/deva-shared/crates/github",
+    "crates/deva-shared/crates/azure_devops",
+]
+
+[package]
+name = "deva-mcp"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"

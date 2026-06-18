@@ -1,0 +1,3 @@
+[submodule "crates/deva-shared"]
+    path = crates/deva-shared
+    url = https://github.com/stringao/deva-shared.git

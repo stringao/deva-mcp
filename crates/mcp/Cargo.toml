@@ -1,0 +1,29 @@
+[package]
+name = "deva-mcp"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "deva-mcp"
+path = "src/main.rs"
+
+[dependencies]
+deva-core = { path = "../../crates/deva-shared/crates/core" }
+deva-github = { path = "../../crates/deva-shared/crates/github", optional = true }
+deva-azure-devops = { path = "../../crates/deva-shared/crates/azure_devops", optional = true }
+
+# MCP Protocol
+rmcp = { version = "1.7", features = ["server", "schemars"] }
+
+# Async Runtime
+tokio = { version = "1", features = ["full"] }
+futures-util = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[features]
+default = []
+github = ["deva-github"]
+azure_devops = ["deva-azure-devops"]
