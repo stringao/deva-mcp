@@ -32,6 +32,17 @@ impl GitHubToolExecutor {
         })))
     }
 
+    /// Execute github_pr_list with real API call
+    pub async fn list_prs_async(&self, state: Option<&str>) -> Result<ToolResult, McpError> {
+        let prs = self.client.list_prs(state)
+            .await
+            .map_err(|e| McpError::Internal(e.to_string()))?;
+        Ok(ToolResult::from_json(serde_json::json!({
+            "pull_requests": prs,
+            "count": prs.len()
+        })))
+    }
+
     /// Execute github_pr_get (placeholder)
     pub fn get_pr(&self, input: ToolInput) -> Result<ToolResult, McpError> {
         let pr_number = input.arguments.get("pr_number")
