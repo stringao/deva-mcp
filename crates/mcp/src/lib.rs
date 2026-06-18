@@ -1,4 +1,5 @@
 pub mod error;
+#[cfg(feature = "github")]
 pub mod github_executor;
 pub mod server;
 pub mod tools;

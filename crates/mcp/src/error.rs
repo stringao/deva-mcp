@@ -14,6 +14,9 @@ pub enum McpError {
     #[error("Registry error: {0}")]
     RegistryError(String),
 
+    #[error("Internal error: {0}")]
+    Internal(String),
+
     #[error("IO error: {0}")]
     IoError(#[from] std::io::Error),
 
